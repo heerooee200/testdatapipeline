@@ -41,7 +41,19 @@
 				"typeProperties": {
 					"cases": [
 						{
-							"value": "Mini"
+							"value": "Mini",
+							"activities": [
+								{
+									"name": "Set path",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "file_path",
+										"value": "\\mini.csv"
+									}
+								}
+							]
 						}
 					]
 				}
