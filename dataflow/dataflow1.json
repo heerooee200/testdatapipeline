@@ -21,8 +21,18 @@
 					"name": "sink1"
 				}
 			],
-			"transformations": [],
-			"script": "parameters{\n\tpath_file as string\n}\nsource(output(\n\t\t{codigo_local_cadena;sku_cadena;descripcion;venta_clp_dia;venta_unidades_dia;stock;account;year;week;weekday;venta_costo;text_extra_1;text_extra_2;text_extra_3;num_extra_1;num_extra_2;num_extra_3;timestamp;cliente;fecha;cadena} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\twildcardPaths:[($path_file)]) ~> archivo\narchivo sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+			"transformations": [
+				{
+					"name": "Filter1"
+				},
+				{
+					"name": "ConditionalSplit1"
+				},
+				{
+					"name": "Lookup1"
+				}
+			],
+			"script": "parameters{\n\tpath_file as string\n}\nsource(output(\n\t\t{codigo_local_cadena;sku_cadena;descripcion;venta_clp_dia;venta_unidades_dia;stock;account;year;week;weekday;venta_costo;text_extra_1;text_extra_2;text_extra_3;num_extra_1;num_extra_2;num_extra_3;timestamp;cliente;fecha;cadena} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\twildcardPaths:[($path_file)]) ~> archivo\nConditionalSplit1 filter(ERROR_FUNCTION('')) ~> Filter1\nLookup1 split(ERROR_FUNCTION(''),\n\tdisjoint: false) ~> ConditionalSplit1@(, )\narchivo lookup(ERROR_FUNCTION('') == ERROR_FUNCTION(''),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> Lookup1\nFilter1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
 		}
 	}
 }
