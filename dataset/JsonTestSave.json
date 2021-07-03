@@ -1,0 +1,17 @@
+{
+	"name": "JsonTestSave",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DLCadenasLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation"
+			}
+		},
+		"schema": {}
+	}
+}
