@@ -1,0 +1,9 @@
+{
+	"name": "testdatapipelineteamcore",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "2b5be9f6-b224-407e-92ab-8678d0b6b6eb",
+		"tenantId": "50c67eb9-a3e6-4019-98f7-3f0c927ee9d8"
+	}
+}
