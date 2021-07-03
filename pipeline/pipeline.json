@@ -5,7 +5,14 @@
 			{
 				"name": "Data flow1",
 				"type": "ExecuteDataFlow",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Switch Files Paths",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "1.00:00:00",
 					"retry": 0,
@@ -25,12 +32,30 @@
 					},
 					"traceLevel": "Fine"
 				}
+			},
+			{
+				"name": "Switch Files Paths",
+				"type": "Switch",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"cases": [
+						{
+							"value": "mini"
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
-			"path": {
+			"archivo": {
 				"type": "string",
 				"defaultValue": "mini"
+			}
+		},
+		"variables": {
+			"file_path": {
+				"type": "String"
 			}
 		},
 		"annotations": []
