@@ -30,7 +30,7 @@
 		"parameters": {
 			"path": {
 				"type": "string",
-				"defaultValue": "/mini.csv"
+				"defaultValue": "mini"
 			}
 		},
 		"annotations": []
