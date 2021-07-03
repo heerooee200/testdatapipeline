@@ -9,9 +9,7 @@
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation",
-				"fileName": "mini.csv",
-				"fileSystem": "files"
+				"type": "AzureBlobFSLocation"
 			},
 			"columnDelimiter": ";",
 			"escapeChar": "\\",
