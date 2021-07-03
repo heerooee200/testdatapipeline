@@ -5,9 +5,9 @@
 		"typeProperties": {
 			"sources": [
 				{
-					"dataset": {
-						"referenceName": "Mini",
-						"type": "DatasetReference"
+					"linkedService": {
+						"referenceName": "DLCadenasLinkedService",
+						"type": "LinkedServiceReference"
 					},
 					"name": "archivo"
 				}
@@ -21,8 +21,12 @@
 					"name": "sink1"
 				}
 			],
-			"transformations": [],
-			"script": "parameters{\n\tpath_file as string\n}\nsource(output(\n\t\t{codigo_local_cadena;sku_cadena;descripcion;venta_clp_dia;venta_unidades_dia;stock;account;year;week;weekday;venta_costo;text_extra_1;text_extra_2;text_extra_3;num_extra_1;num_extra_2;num_extra_3;timestamp;cliente;fecha;cadena} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> archivo\narchivo sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['archivojson'],\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 1,\n\tpartitionBy('hash', 1)) ~> sink1"
+			"transformations": [
+				{
+					"name": "Aggregate1"
+				}
+			],
+			"script": "parameters{\n\tpath_file as string\n}\nsource(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'delimited',\n\tfileSystem: 'files',\n\tfileName: 'df2.csv',\n\tcolumnDelimiter: ';',\n\tescapeChar: '\\\\',\n\tqutoChar: '\\\"',\n\tcolumnNamesAsHeader: true) ~> archivo\narchivo aggregate(groupBy({codigo_local_cadena;sku_cadena;descripcion;venta_clp_dia;venta_unidades_dia;stock;account;year;week;weekday;venta_costo;text_extra_1;text_extra_2;text_extra_3;num_extra_1;num_extra_2;num_extra_3;timestamp;cliente;fecha;cadena})) ~> Aggregate1\nAggregate1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['archivojson'],\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 1,\n\tpartitionBy('hash', 1)) ~> sink1"
 		}
 	}
 }
