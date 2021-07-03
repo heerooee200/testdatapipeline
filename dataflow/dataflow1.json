@@ -14,11 +14,15 @@
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "JsonTestSave",
+						"type": "DatasetReference"
+					},
 					"name": "sink1"
 				}
 			],
 			"transformations": [],
-			"script": "parameters{\n\tpath_file as string\n}\nsource(output(\n\t\t{codigo_local_cadena;sku_cadena;descripcion;venta_clp_dia;venta_unidades_dia;stock;account;year;week;weekday;venta_costo;text_extra_1;text_extra_2;text_extra_3;num_extra_1;num_extra_2;num_extra_3;timestamp;cliente;fecha;cadena} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\twildcardPaths:[($path_file)]) ~> archivo\narchivo sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+			"script": "parameters{\n\tpath_file as string\n}\nsource(output(\n\t\t{codigo_local_cadena;sku_cadena;descripcion;venta_clp_dia;venta_unidades_dia;stock;account;year;week;weekday;venta_costo;text_extra_1;text_extra_2;text_extra_3;num_extra_1;num_extra_2;num_extra_3;timestamp;cliente;fecha;cadena} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\twildcardPaths:[($path_file)]) ~> archivo\narchivo sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
 		}
 	}
 }
