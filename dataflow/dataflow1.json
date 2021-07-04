@@ -14,10 +14,6 @@
 			],
 			"sinks": [
 				{
-					"linkedService": {
-						"referenceName": "DLCadenasLinkedService",
-						"type": "LinkedServiceReference"
-					},
 					"name": "sink1"
 				}
 			],
@@ -33,10 +29,10 @@
 					"name": "ConditionalSplit1"
 				},
 				{
-					"name": "Aggregate2"
+					"name": "Aggregate3"
 				}
 			],
-			"script": "parameters{\n\tpath_file as string\n}\nsource(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'delimited',\n\tfileSystem: 'files',\n\tfileName: 'mini.csv',\n\tcolumnDelimiter: ';',\n\tescapeChar: '\\\\',\n\tqutoChar: '\\\"',\n\tcolumnNamesAsHeader: true) ~> archivo\narchivo derive(sku_cadena = toString(byName('sku_cadena')),\n\t\tventa_clp_dia = toString(byName('venta_clp_dia')),\n\t\tventa_unidades_dia = toString(byName('venta_unidades_dia')),\n\t\tstock = toString(byName('stock')),\n\t\tfecha = toString(byName('fecha')),\n\t\tcadena = toString(byName('cadena'))) ~> MapDrifted1\nMapDrifted1 aggregate(groupBy(sku_cadena,\n\t\tcadena),\n\tvalues = collect(@(fecha = fecha, venta_unidades_dia = venta_unidades_dia, venta_clp_dia = venta_clp_dia, stock = stock))) ~> Aggregate1\nAggregate1 split(equals(cadena,\"Mariaside\"),\n\tdisjoint: true) ~> ConditionalSplit1@(Mariaside)\nConditionalSplit1@Mariaside aggregate(groupBy(sku_cadena),\n\tsku_group = collect(@(sku_cadena=sku_cadena,\n\t\tvalues=values))) ~> Aggregate2\nAggregate2 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'json',\n\tfileSystem: 'files',\n\tpartitionFileNames:['Mariaside.json'],\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 0,\n\tmapColumn(\n\t\tsku_group\n\t),\n\tpartitionBy('hash', 1)) ~> sink1"
+			"script": "parameters{\n\tpath_file as string\n}\nsource(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'delimited',\n\tfileSystem: 'files',\n\tfileName: 'mini.csv',\n\tcolumnDelimiter: ';',\n\tescapeChar: '\\\\',\n\tqutoChar: '\\\"',\n\tcolumnNamesAsHeader: true) ~> archivo\narchivo derive(sku_cadena = toString(byName('sku_cadena')),\n\t\tventa_clp_dia = toString(byName('venta_clp_dia')),\n\t\tventa_unidades_dia = toString(byName('venta_unidades_dia')),\n\t\tstock = toString(byName('stock')),\n\t\tfecha = toString(byName('fecha')),\n\t\tcadena = toString(byName('cadena'))) ~> MapDrifted1\nMapDrifted1 aggregate(groupBy(sku_cadena,\n\t\tcadena),\n\tvalues = collect(@(fecha = fecha, venta_unidades_dia = venta_unidades_dia, venta_clp_dia = venta_clp_dia, stock = stock))) ~> Aggregate1\nAggregate1 split(equals(cadena,\"Mariaside\"),\n\tdisjoint: true) ~> ConditionalSplit1@(Mariaside)\nConditionalSplit1@Mariaside aggregate(groupBy(cadena),\n\tmariaside = collect(@(sku_cadena=sku_cadena,\t\tvalues=values))) ~> Aggregate3\nAggregate3 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['Mariaside.json'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tkeys:['mariaside'],\n\tstore: 'cache',\n\tformat: 'inline',\n\toutput: false,\n\tsaveOrder: 1,\n\tmapColumn(\n\t\tmariaside = mariaside\n\t),\n\tpartitionBy('hash', 1)) ~> sink1"
 		}
 	}
 }
