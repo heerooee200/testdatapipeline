@@ -85,7 +85,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Data flow - Obtener cadenas').output.value",
+						"value": "@activity('Data flow - Obtener cadenas').output.runStatus.output.sink1.value",
 						"type": "Expression"
 					},
 					"isSequential": true,
