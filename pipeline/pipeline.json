@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Data flow1",
+				"name": "Data flow - Obtener cadenas",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [
 					{
@@ -66,6 +66,26 @@
 							]
 						}
 					]
+				}
+			},
+			{
+				"name": "ForEach Cadena",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Data flow - Obtener cadenas",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Data flow - Obtener cadenas').output",
+						"type": "Expression"
+					},
+					"isSequential": true
 				}
 			}
 		],
