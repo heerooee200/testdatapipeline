@@ -36,7 +36,10 @@
 						"coreCount": 8,
 						"computeType": "General"
 					},
-					"traceLevel": "Fine"
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": false
+					}
 				}
 			},
 			{
@@ -82,10 +85,21 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Data flow - Obtener cadenas').output",
+						"value": "@activity('Data flow - Obtener cadenas').output.value",
 						"type": "Expression"
 					},
-					"isSequential": true
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Wait1",
+							"type": "Wait",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": 1
+							}
+						}
+					]
 				}
 			}
 		],
