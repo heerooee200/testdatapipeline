@@ -70,37 +70,6 @@
 						}
 					]
 				}
-			},
-			{
-				"name": "ForEach Cadena",
-				"type": "ForEach",
-				"dependsOn": [
-					{
-						"activity": "Data flow - Obtener cadenas",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"items": {
-						"value": "@activity('Data flow - Obtener cadenas').output.runStatus.output.sink1.value",
-						"type": "Expression"
-					},
-					"isSequential": true,
-					"activities": [
-						{
-							"name": "Wait1",
-							"type": "Wait",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"waitTimeInSeconds": 1
-							}
-						}
-					]
-				}
 			}
 		],
 		"parameters": {
