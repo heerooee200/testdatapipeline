@@ -3,7 +3,10 @@
 	"properties": {
 		"variables": {
 			"Cadenas": {
-				"type": "Array"
+				"type": "Array",
+				"defaultValue": [
+					"['Cookville']"
+				]
 			}
 		},
 		"annotations": []
