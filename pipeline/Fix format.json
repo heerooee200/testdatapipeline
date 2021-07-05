@@ -49,8 +49,13 @@
 			"Cadenas": {
 				"type": "Array",
 				"defaultValue": [
+					"Mariaside",
+					"Rebeccaburgh",
+					"North Eric",
 					"Cookville",
-					"SouthChristopher"
+					"Josephville",
+					"Port Danielle",
+					"South Christopher"
 				]
 			}
 		},
