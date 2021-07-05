@@ -33,6 +33,10 @@
 									"archivo": {
 										"value": "@item()",
 										"type": "Expression"
+									},
+									"particiones": {
+										"value": "@join(pipeline().parameters.particiones,',')",
+										"type": "Expression"
 									}
 								}
 							},
@@ -47,7 +51,25 @@
 		],
 		"parameters": {
 			"cadenas": {
-				"type": "array"
+				"type": "array",
+				"defaultValue": [
+					"Mariaside",
+					"'Rebeccaburgh",
+					"North Eric",
+					"Cookville",
+					"Josephville",
+					"Port Danielle",
+					"South Christopher"
+				]
+			},
+			"particiones": {
+				"type": "array",
+				"defaultValue": [
+					"mini",
+					"df1",
+					"df2",
+					"df4"
+				]
 			}
 		},
 		"annotations": []

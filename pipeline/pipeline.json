@@ -12,6 +12,7 @@
 						"value": "@pipeline().parameters.particiones",
 						"type": "Expression"
 					},
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "Data flow - Obtener cadenas",
@@ -67,6 +68,10 @@
 					"parameters": {
 						"cadenas": {
 							"value": "@pipeline().parameters.cadenas",
+							"type": "Expression"
+						},
+						"particiones": {
+							"value": "@pipeline().parameters.particiones",
 							"type": "Expression"
 						}
 					}
