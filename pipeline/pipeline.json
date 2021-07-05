@@ -47,7 +47,7 @@
 				"typeProperties": {
 					"variableName": "file_path",
 					"value": {
-						"value": "@concat(pipeline().parameters.archivo,'.csv')",
+						"value": "@concat(pipeline().parameters.archivo,'')",
 						"type": "Expression"
 					}
 				}
