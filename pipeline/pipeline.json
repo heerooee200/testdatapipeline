@@ -52,6 +52,18 @@
 					"df2",
 					"df4"
 				]
+			},
+			"cadenas": {
+				"type": "array",
+				"defaultValue": [
+					"Mariaside",
+					"'Rebeccaburgh",
+					"North Eric",
+					"Cookville",
+					"Josephville",
+					"Port Danielle",
+					"South Christopher"
+				]
 			}
 		},
 		"variables": {
