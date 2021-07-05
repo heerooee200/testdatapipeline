@@ -3,60 +3,55 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Data flow - Obtener cadenas",
-				"type": "ExecuteDataFlow",
-				"dependsOn": [
-					{
-						"activity": "Set CSV path",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "1.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"dataflow": {
-						"referenceName": "dataflow1",
-						"type": "DataFlowReference",
-						"parameters": {
-							"path_file": {
-								"value": "'@{variables('file_path')}'",
-								"type": "Expression"
-							}
-						}
-					},
-					"compute": {
-						"coreCount": 8,
-						"computeType": "General"
-					},
-					"traceLevel": "None"
-				}
-			},
-			{
-				"name": "Set CSV path",
-				"type": "SetVariable",
+				"name": "ForEach particion",
+				"type": "ForEach",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "file_path",
-					"value": {
-						"value": "@concat(pipeline().parameters.archivo,'')",
-						"type": "Expression"
-					}
+					"activities": [
+						{
+							"name": "Data flow - Obtener cadenas",
+							"type": "ExecuteDataFlow",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "1.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataflow": {
+									"referenceName": "dataflow1",
+									"type": "DataFlowReference",
+									"parameters": {
+										"path_file": {
+											"value": "'@{item()}'",
+											"type": "Expression"
+										}
+									}
+								},
+								"compute": {
+									"coreCount": 8,
+									"computeType": "General"
+								},
+								"traceLevel": "None"
+							}
+						}
+					]
 				}
 			}
 		],
 		"parameters": {
-			"archivo": {
-				"type": "string",
-				"defaultValue": "mini"
+			"particiones": {
+				"type": "array",
+				"defaultValue": [
+					"mini",
+					"df1",
+					"df2",
+					"df4"
+				]
 			}
 		},
 		"variables": {
