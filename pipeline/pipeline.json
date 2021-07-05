@@ -41,6 +41,26 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Execute join json format",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "ForEach particion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "join json format",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"parameters": {
@@ -53,7 +73,7 @@
 					"df4"
 				]
 			},
-			"cadenas": {
+			"Cadenas": {
 				"type": "array",
 				"defaultValue": [
 					"Mariaside",
