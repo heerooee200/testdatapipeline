@@ -7,7 +7,7 @@
 				"type": "ExecuteDataFlow",
 				"dependsOn": [
 					{
-						"activity": "Switch Files Paths",
+						"activity": "Set CSV path",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -40,32 +40,16 @@
 				}
 			},
 			{
-				"name": "Switch Files Paths",
-				"type": "Switch",
+				"name": "Set CSV path",
+				"type": "SetVariable",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
-					"on": {
-						"value": "@pipeline().parameters.archivo",
+					"variableName": "file_path",
+					"value": {
+						"value": "@concat(pipeline().parameters.archivo,'.csv')",
 						"type": "Expression"
-					},
-					"cases": [
-						{
-							"value": "mini",
-							"activities": [
-								{
-									"name": "Set path",
-									"type": "SetVariable",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"variableName": "file_path",
-										"value": "/mini.csv"
-									}
-								}
-							]
-						}
-					]
+					}
 				}
 			}
 		],
