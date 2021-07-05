@@ -8,6 +8,10 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.particiones",
+						"type": "Expression"
+					},
 					"activities": [
 						{
 							"name": "Data flow - Obtener cadenas",
