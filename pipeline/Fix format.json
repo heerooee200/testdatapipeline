@@ -1,6 +1,11 @@
 {
 	"name": "Fix format",
 	"properties": {
+		"variables": {
+			"Cadenas": {
+				"type": "Array"
+			}
+		},
 		"annotations": []
 	}
 }
