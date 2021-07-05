@@ -59,7 +59,13 @@
 						"referenceName": "join json format",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"cadenas": {
+							"value": "@pipeline().parameters.cadenas",
+							"type": "Expression"
+						}
+					}
 				}
 			}
 		],
@@ -73,7 +79,7 @@
 					"df4"
 				]
 			},
-			"Cadenas": {
+			"cadenas": {
 				"type": "array",
 				"defaultValue": [
 					"Mariaside",
